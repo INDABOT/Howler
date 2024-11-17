@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"
+      integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="navigation">
+      <button onclick="scrollToSection('gallery')">Photos</button>
+      <button onclick="scrollToSection('timeline')">Our Story</button>
+      <button onclick="scrollToSection('memories')">Memories</button>
+      <button onclick="showMessage()">Special Message</button>
+    </div>
+
+    <div class="music-controls">
+      <button onclick="toggleMusic()">🎵 Play/Pause Music</button>
+    </div>
+
+    <div class="container">
+      <div class="heart">❤️</div>
+      <h1>To My Special Someone</h1>
+
+      <div id="special-message">
+        Every day with you feels like a gift. Even when we're apart, my thoughts
+        are with you. Let me share our journey together...
+      </div>
+
+      <section id="gallery">
+        <h2>Our Precious Moments</h2>
+        <div class="gallery">
+          <img src="/api/placeholder/300/200" alt="Our First Date" />
+          <img src="/api/placeholder/300/200" alt="Summer Vacation" />
+          <img src="/api/placeholder/300/200" alt="Birthday Celebration" />
+          <img src="/api/placeholder/300/200" alt="Holiday Together" />
+          <img src="/api/placeholder/300/200" alt="Special Dinner" />
+        </div>
+      </section>
+
+      <section id="timeline">
+        <h2>Our Story</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h3>The Day We Met</h3>
+            <p>That magical moment when our eyes first met...</p>
+          </div>
+          <div class="timeline-item">
+            <h3>First Date</h3>
+            <p>Remember how nervous we both were?</p>
+          </div>
+          <div class="timeline-item">
+            <h3>First Kiss</h3>
+            <p>Under the starlit sky...</p>
+          </div>
+          <div class="timeline-item">
+            <h3>Adventures Together</h3>
+            <p>Every moment with you is an adventure</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="memories">
+        <h2>Special Memories</h2>
+        <div class="memory-container">
+          <div class="memory-card">
+            <h3>Remember When...</h3>
+            <p>We first met and time seemed to stand still</p>
+          </div>
+          <div class="memory-card">
+            <h3>That Time...</h3>
+            <p>We laughed so hard we couldn't breathe</p>
+          </div>
+          <div class="memory-card">
+            <h3>The Day...</h3>
+            <p>You made me realize how special you are</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Initialize background music
+      const sound = new Howl({
+        src: ["https://youtu.be/l0U7SxXHkPY?si=NjA6kViiTMLG47q7"], // Add your music URL here
+        loop: true,
+        volume: 0.5,
+      });
+
+      let isPlaying = false;
+
+      function toggleMusic() {
+        if (isPlaying) {
+          sound.pause();
+        } else {
+          sound.play();
+        }
+        isPlaying = !isPlaying;
+      }
+
+      // Array of sweet messages
+      const messages = [
+        "Your smile brightens my darkest days...",
+        "Every moment with you is precious...",
+        "You mean the world to me...",
+        "I cherish our memories together...",
+        "You make my life complete...",
+      ];
+
+      let currentMessageIndex = 0;
+
+      function showMessage() {
+        if (document.querySelector(".floating-messages")) {
+          return;
+        }
+
+        const messageDiv = document.createElement("div");
+        messageDiv.className = "floating-messages";
+        messageDiv.innerHTML = `
+              <span class="close-button" onclick="this.parentElement.remove()">✕</span>
+              <p>${messages[currentMessageIndex]}</p>
+          `;
+        document.body.appendChild(messageDiv);
+
+        currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+      }
+
+      function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+
+      // Show messages one by one automatically
+      setInterval(showMessage, 15000); // Shows a new message every 15 seconds
+    </script>
+  </body>
+</html>
